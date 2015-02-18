@@ -36,4 +36,5 @@ structures = readStruct(structPath, 0); % 0 = no visualization
 for i = 1:numel(structures)
     fprintf('creating cube for %s volume...\n', structures(i).structName);
     structures(i).cube = createStructCube(structures(i).points, ctInfo);
+    structures(i).indizes = getIndizesFromCube(structures(i).cube);
 end

@@ -38,3 +38,6 @@ for i = 1:numel(structures)
     structures(i).cube = createStructCube(structures(i).points, ctInfo);
     structures(i).indizes = getIndizesFromCube(structures(i).cube);
 end
+
+%% show exemplary slice
+visCtAndContour(ct, structures);

@@ -1,6 +1,6 @@
 function [ct, ctResolution, ctInfo] = readCtSlices(ctPath, visualizationBool)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% call ct = readCtSlices('path\to\DICOM\files')
+% call ct = readCtSlices('path\to\DICOM\files', visualizationBool)
 % returns a X x Y x Z - Matrix containing the ct image
 % if visualizationBool is not specified, visualization is turned on
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -12,14 +12,13 @@ end
 
 %% get list of *.dcm files
 nameList = dir([ctPath '\*.dcm']);
-% not necessary when using "dir([PathString '\*.dcm'])"
-% % %             numOfFiles = numel(nameList); % number of files in chosen directory
-% % %             for i = 1:numOfFiles
-% % %                 j = numOfFiles + 1 - i; % to start with the last entry
-% % %                 if nameList(j).isdir || isempty(strfind(nameList(j).name,'.dcm'))
-% % %                     nameList(j) = []; % remove non *.dcm filenames
-% % %                 end
-% % %             end
+% use only files that are named 'CT', in case there are other *.dcm files
+% in the folder (e.g. RTSTRUCT file 'RS1.3.4.1..... .dcm')
+for i = numel(nameList):-1:1
+    if isempty(regexp(nameList(i).name,'CT', 'once'));
+        nameList(i) = [];
+    end
+end
 numOfSlices = numel(nameList);% number of ct-slices in chosen directory
 
 %% read the *.dcm ct-slices

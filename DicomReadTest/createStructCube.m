@@ -13,7 +13,7 @@ voxelSpacing = [ctInfo.PixelSpacing(1), ctInfo.PixelSpacing(2),...
                                                     ctInfo.SliceThickness];
 
 % checking Patient Orientation
-if ctInfo.ImageOrientationPatient ~= [1;0;0;0;1;0]
+if ~isequal(ctInfo.ImageOrientationPatient,[1;0;0;0;1;0])
     error('createStructCube:patientOrientation',...
         'Patient axis not along x & y axis')
 end

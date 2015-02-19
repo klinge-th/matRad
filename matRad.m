@@ -33,7 +33,7 @@ clc
 % load patient data, i.e. ct, voi, cst
 
 %load HEAD_AND_NECK
-load TG119.mat
+%load TG119.mat
 %load PROSTATE.mat
 %load LIVER.mat
 
@@ -42,8 +42,8 @@ pln.SAD             = 1000; %[mm]
 pln.resolution      = ctResolution; %[mm/voxel]
 pln.isoCenter       = matRad_getIsoCenter(cst,ct,pln,0);
 pln.bixelWidth      = 5; % [mm] / also corresponds to lateral spot spacing for particles
-pln.gantryAngles    = [0:40:359]; % [°]
-pln.couchAngles     = [0 0 0 0 0 0 0 0 0]; % [°]
+pln.gantryAngles    = [0 180]; % [°]
+pln.couchAngles     = [0 0]; % [°]
 pln.numOfBeams      = numel(pln.gantryAngles);
 pln.numOfVoxels     = numel(ct);
 pln.voxelDimensions = size(ct);

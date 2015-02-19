@@ -33,14 +33,16 @@ voxContPoints = zeros(numOfContPoints,3);
 for i = 1:numOfContPoints
     cartVect = structContPoints(i,:);
     
-    voxelVect = [(cartVect(1) - xOff) / voxelSpacing(1),...
-        (cartVect(2) - yOff) / voxelSpacing(2),...
-        (cartVect(3) - zOff) / voxelSpacing(3)];
-    voxContPoints(i,:) = voxelVect;    
+    voxelVect = [0.5 + (cartVect(1) - xOff) / voxelSpacing(1),...
+        0.5 + (cartVect(2) - yOff) / voxelSpacing(2),...
+        0.5 + (cartVect(3) - zOff) / voxelSpacing(3)];
+    voxContPoints(i,:) = voxelVect;
+    % +0.5 = 1/2 voxel. This sets the center of the first voxel at the
+    % origin of the cube in physical coordinates
 end
 
 voxContPoints = ceil(voxContPoints(:,:));
-voxContPoints(voxContPoints == 0) = 1; % in case of a point at the origin
+voxContPoints(voxContPoints <= 0) = 1; % in case of a point at the origin
 
 %% generate coordinates inside the contours
 % create grid points

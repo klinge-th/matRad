@@ -10,7 +10,7 @@ ctPath = 'D:\matRad projects\GitHub\matRad\TestPatient\Quasimodo';
 structPath = ['D:\matRad projects\GitHub\matRad\TestPatient\' ...
             'RS1.3.6.1.4.1.2452.6.120060512.20736.311.101211283.dcm'];
 
-targetCtRes = [6 6 6]; % define the desired ct-resolution (will be
+targetCtRes = [5 5 2]; % define the desired ct-resolution (will be
                      % interpolated from the original ct-cube)
 % output folder:
 outputFolder = 'D:\matRad projects\GitHub\matRad\DICOMimported\';

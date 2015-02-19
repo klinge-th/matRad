@@ -27,7 +27,7 @@ newNumOfVoxZ = round(factZ * origNumOfVoxZ);
                                                 
 %% interpolate Cube
 
-interpCube = interpn(origX,origY,origZ,origCube,newX,newY,newZ,'linear'); 
+interpCube = interpn(origX,origY,origZ,origCube,newX,newY,newZ,'spline'); 
 
 
 end

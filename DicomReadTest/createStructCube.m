@@ -23,6 +23,14 @@ xOff = ctInfo.ImagePositionPatient(1);
 yOff = ctInfo.ImagePositionPatient(2); 
 zOff = ctInfo.ImagePositionPatient(3);
 
+% determine direction of the coordinates to transform to lps-system
+dirVect = [ctInfo.ImageOrientationPatient(1),... % x-direction
+            ctInfo.ImageOrientationPatient(5),...% y-direction 
+            1]; % z-direction will be set in the next step
+if ~isempty(regexp(ctInfo.PatientPosition,'HF', 'once'))
+    dirVect(3) = -1;
+end
+
 % initializing cube                                                
 cubeDimensions = [ctInfo.Width, ctInfo.Height, ctInfo.ImagesInAcquisition];
 structCube = zeros(cubeDimensions);
@@ -40,7 +48,9 @@ for i = 1:numOfContPoints
     % +0.5 = 1/2 voxel. This sets the center of the first voxel at the
     % origin of the cube in physical coordinates
 end
-
+voxContPoints(:,1) = dirVect(1) * voxContPoints(:,1);
+voxContPoints(:,2) = dirVect(2) * voxContPoints(:,2);
+voxContPoints(:,3) = dirVect(3) * voxContPoints(:,3);
 voxContPoints = ceil(voxContPoints(:,:));
 voxContPoints(voxContPoints <= 0) = 1; % in case of a point at the origin
 

@@ -15,6 +15,9 @@ function ctHU = calcWaterEqT(ct, ctInfo)
 
 slope = ctInfo.RescaleSlope;
 intercept = ctInfo.RescaleIntercept;
+% reshaping the cube produces real values, but for the conversion using the
+% LUT integer values are needed
+ct=int64(ct);
 
 ctHU = ct * slope + intercept;
 

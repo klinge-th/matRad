@@ -46,5 +46,63 @@ for i = 1:numOfSlices
     end
 end
 
+%% correction if not lps-coordinate-system
+% if head-to-feet (HF: Head First) instead of feet-to-head (FF: Feet first)
+% the ct-cube has to be mirrored
+if ~isempty(regexp(ctInfo.PatientPosition,'HF', 'once'))
+    fprintf('\nMirroring z-direction...')
+    ct_temp = zeros(size(ct));
+
+    for j=1:size(ct,3)
+        ct_temp(:,:,size(ct,3)-j+1) = ct(:,:,j);
+    end
+
+    ct = ct_temp;
+    fprintf('finished!\n')
+end
+
+% The x- & y-direction in lps-coordinates are specified in:
+% ImageOrientationPatient
+xDir = ctInfo.ImageOrientationPatient(1:3); % lps: [1;0;0]
+yDir = ctInfo.ImageOrientationPatient(4:6); % lps: [0;1;0]
+nonStandardDirection = false;
+
+% correct x- & y-direction
+
+if xDir(1) == 1 && xDir(2) == 0 && xDir(3) == 0
+    fprintf('x-direction OK\n')
+elseif xDir(1) == -1 && xDir(2) == 0 && xDir(3) == 0
+    fprintf('\nMirroring x-direction...')
+    ct_temp = zeros(size(ct));
+
+    for j=1:size(ct,1)
+        ct_temp(size(ct,3)-j+1,:,:) = ct(j,:,:);
+    end
+
+    ct = ct_temp;
+    fprintf('finished!\n')
+else
+    nonStandardDirection = true;
+end
+    
+if yDir(1) == 0 && yDir(2) == 1 && yDir(3) == 0
+    fprintf('y-direction OK\n')
+elseif yDir(1) == 0 && yDir(2) == -1 && yDir(3) == 0
+    fprintf('\nMirroring y-direction...')
+    ct_temp = zeros(size(ct));
+
+    for j=1:size(ct,1)
+        ct_temp(:,size(ct,3)-j+1,:) = ct(:,j,:);
+    end
+
+    ct = ct_temp;
+    fprintf('finished!\n')
+else
+    nonStandardDirection = true;
+end
+if nonStandardDirection
+    fprintf(['Non-standard patient orientation.\n'...
+        'CT might not fit to contoured structures\n'])
+end
 
 end

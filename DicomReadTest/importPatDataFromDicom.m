@@ -6,21 +6,20 @@
 
 %% parameters
 % specify paths to the ct-image folder and the RTSTRUCT file
-ctPath = 'D:\matRad projects\GitHub\matRad\TestPatient\TG119_Dicom';
-structPath = ['D:\matRad projects\GitHub\matRad\TestPatient\TG119_Dicom'...
-            '\RS.TG119_CShape.dcm'];
+ctPath = ['D:\GitHub\matRad\TestPatient\Liver_dicom'];
+structPath = ['D:\GitHub\matRad\TestPatient\Liver_dicom\anon169.dcm'];
 
-targetCtRes = [3 3 2.5]; % define the desired ct-resolution (will be
+targetCtRes = [3 3 5]; % define the desired ct-resolution (will be
                      % interpolated from the original ct-cube)
 % output folder:
-outputFolder = 'D:\matRad projects\GitHub\matRad\DICOMimported\';
+outputFolder = 'D:\GitHub\matRad\DICOMimported\';
 % patient description used for the final *.mat file
 patientName = 'TestPatient1';
         
 %% import ct-cube
 fprintf(['+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++' ...
     '\nimporting ct-cube...']);
-[origCt, origCtResolution, origCtInfo] = readCtSlices(ctPath, 1); % 0 = no visualization
+[origCt, origCtResolution, origCtInfo, sliceInfo] = readCtSlices(ctPath, 1); % 0 = no visualization
 fprintf('finished!\n');
 
 %% calculating water equivalent thickness from HU

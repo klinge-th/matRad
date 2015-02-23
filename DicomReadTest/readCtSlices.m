@@ -1,4 +1,4 @@
-function [ct, ctResolution, ctInfo] = readCtSlices(ctPath, visualizationBool)
+function [ct, ctResolution, ctInfo, info] = readCtSlices(ctPath, visualizationBool)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % call ct = readCtSlices('path\to\DICOM\files', visualizationBool)
 % returns a X x Y x Z - Matrix containing the ct image
@@ -30,10 +30,14 @@ ctResolution(3) = ctInfo.SliceThickness;
 
 % creation of ct-cube
 ct = zeros(ctInfo.Width, ctInfo.Height, numOfSlices);
+info = struct(ctInfo);
 for i = 1:numOfSlices
     currentFilename = nameList(i).name;
     [currentImage, map] = dicomread(currentFilename);
     ct(:,:,i) = currentImage(:,:); % creation of the ct cube
+    
+    % get info for each ct-file
+    info(i) = dicominfo(nameList(1).name);
     
     % draw current ct-slice
     if visualizationBool

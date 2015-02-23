@@ -51,10 +51,23 @@ end
 voxContPoints(:,1) = dirVect(1) * voxContPoints(:,1);
 voxContPoints(:,2) = dirVect(2) * voxContPoints(:,2);
 voxContPoints(:,3) = dirVect(3) * voxContPoints(:,3);
+
 voxContPoints = ceil(voxContPoints(:,:));
+% if the ct-cube was mirrored along the z-axis, the structure coordinates
+% have to be adjusted accordingly
+if dirVect(3) == -1;
+    voxContPoints(:,3) = cubeDimensions(3) - voxContPoints(:,3) + 1;
+end
 voxContPoints(voxContPoints <= 0) = 1; % in case of a point at the origin
 
 %% generate coordinates inside the contours
+
+% first delete contour points that are definded outside of the ct-cube
+for i = 1:3
+    idx = voxContPoints(:,i) > cubeDimensions(i);
+    voxContPoints(idx,:) = [];    
+end
+
 % create grid points
 [X,Y] = meshgrid(1:double(cubeDimensions(1)),1:double(cubeDimensions(2)));
 % create contour vectors

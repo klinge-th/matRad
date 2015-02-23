@@ -6,8 +6,8 @@
 
 %% parameters
 % specify paths to the ct-image folder and the RTSTRUCT file
-ctPath = ['D:\GitHub\matRad\TestPatient\Prostate_Dicom'];
-structPath = ['D:\GitHub\matRad\TestPatient\Prostate_Dicom\RS'];
+ctPath = ['D:\matRad projects\GitHub\matRad\TestPatient\Prostate_Dicom'];
+structPath = ['D:\matRad projects\GitHub\matRad\TestPatient\Prostate_Dicom\RS'];
 
 targetCtRes = [3 3 3]; % define the desired ct-resolution (will be
                      % interpolated from the original ct-cube)

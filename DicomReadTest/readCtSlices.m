@@ -37,7 +37,7 @@ for i = 1:numOfSlices
     ct(:,:,i) = currentImage(:,:); % creation of the ct cube
     
     % get info for each ct-file
-    info(i) = dicominfo(nameList(1).name);
+    info(i) = dicominfo(nameList(i).name);
     
     % draw current ct-slice
     if visualizationBool

@@ -7,10 +7,10 @@
 %% parameters
 % specify path to the patient directory containing the ct and structure
 % files
-patDir = 'D:\klingeData\TestPatients\HN_dicom';
-% define the desired ct-resolution
-% (will be interpolated from the original ct-cube)
-targetCtRes = [10 10 10];
+patDir = 'D:\klingeData\TestPatients\TG119_dicom';
+% define the desired ct-resolution which will be interpolated from the
+% original ct-cube
+targetCtRes = [3 3 2.5];
 % output folder:
 outputFolder = 'D:\matRad projects\GitHub\matRad\DICOMimported\';
 % patient description used for the final *.mat file
@@ -85,5 +85,9 @@ save([outputFolder patientName '.mat'],'ct','ctResolution','cst');
 fprintf(['\nfinished!\nImported patient data can be found in:\n'...
     patientName '.mat\n']);
 fprintf('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n')
-%% show exemplary slice
-visCtAndContour(ct, structures);
+
+%% visualize results
+pln.resolution = ctResolution;
+pln.isoCenter = matRad_getIsoCenter(cst,ct,pln,0);
+matRad_visCtDose([],cst,pln,ct);
+% visCtAndContour(ct, structures);

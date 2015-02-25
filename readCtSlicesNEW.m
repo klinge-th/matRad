@@ -36,6 +36,7 @@ info = info(indexing);
 
 %% creation of ct-cube
 fprintf('reading slices...')
+if visualizationBool
 ct = zeros(ctInfo.Width, ctInfo.Height, numOfSlices);
 for i = 1:numOfSlices
     currentFilename = ctList{i};
@@ -46,8 +47,14 @@ for i = 1:numOfSlices
     if visualizationBool
         if ~isempty(map)
             image(ind2rgb(uint8(63*currentImage/max(currentImage(:))),map));
+            xlabel('x [voxelnumber]')
+            ylabel('y [voxelnumber]')
+            title(['Slice number ' int2str(i) ' of ' int2str(numOfSlices)])
         else
             image(ind2rgb(uint8(63*currentImage/max(currentImage(:))),bone));
+            xlabel('x [voxelnumber]')
+            ylabel('y [voxelnumber]')
+            title(['Slice number ' int2str(i) ' of ' int2str(numOfSlices)])
         end
         pause(0.1);
     end

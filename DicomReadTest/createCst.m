@@ -102,7 +102,7 @@ else
     % 2. check if a target volume is set
     idx = strfind(cst(:,3),'TARGET');
     if isempty([idx{:}])
-        fprintf(['WARNING: No target volumes was defined!\nPlease adjust'...
+        fprintf(['WARNING: No target volume was defined!\nPlease adjust'...
             'cst cell before executing treatment planning.']);
     end
 end

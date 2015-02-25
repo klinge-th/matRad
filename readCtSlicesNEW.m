@@ -34,9 +34,29 @@ CoordList = [info.ImagePositionPatient]';
 ctList = ctList(indexing);
 info = info(indexing);
 
+%% checking the patient position
+% As of now, the matRad treatment planning system is only valid for
+% patients in a supine position. Other orientations (e.g. prone, decubitus
+% left/right) are not supported.
+% Defined Terms:
+% HFP     Head First-Prone                  (not supported)
+% HFS     Head First-Supine                 (supported)
+% HFDR    Head First-Decubitus Right        (not supported)
+% HFDL    Head First-Decubitus Left         (not supported)
+% FFDR    Feet First-Decubitus Right        (not supported)
+% FFDL    Feet First-Decubitus Left         (not supported)
+% FFP     Feet First-Prone                  (not supported)
+% FFS     Feet First-Supine                 (supported)
+
+if ~strcmp(ctInfo.PatientPosition,'HFS') ...
+        || ~strcmp(ctInfo.ctInfo.PatientPosition,'FFS')
+    error(['This Patient Position is not supported by matRad.'...
+        ' As of now only ''HFS'' (Head First-Supine) and ''FFS'''...
+        ' (Feet First-Supine) can be processed.'])    
+end
+
 %% creation of ct-cube
 fprintf('reading slices...')
-if visualizationBool
 ct = zeros(ctInfo.Width, ctInfo.Height, numOfSlices);
 for i = 1:numOfSlices
     currentFilename = ctList{i};

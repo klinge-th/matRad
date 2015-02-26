@@ -48,8 +48,7 @@ info = info(indexing);
 % FFP     Feet First-Prone                  (not supported)
 % FFS     Feet First-Supine                 (supported)
 
-if ~strcmp(ctInfo.PatientPosition,'HFS') ...
-        || ~strcmp(ctInfo.PatientPosition,'FFS')
+if isempty(regexp(ctInfo.PatientPosition,'S', 'once'))
     error(['This Patient Position is not supported by matRad.'...
         ' As of now only ''HFS'' (Head First-Supine) and ''FFS'''...
         ' (Feet First-Supine) can be processed.'])    

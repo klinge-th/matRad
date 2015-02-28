@@ -10,7 +10,7 @@
 patDir = 'DicomData\Liver_dicom';
 % define the desired ct-resolution which will be interpolated from the
 % original ct-cube
-targetCtRes = [3 3 2.5]; % this resolution is only chosen for performance
+targetCtRes = [10 10 10]; % this resolution is only chosen for performance
 % for liver: targetCtRes = [3 3 2.5]; % ~10min
 % output folder:
 outputFolder = '.\DICOMimported\';

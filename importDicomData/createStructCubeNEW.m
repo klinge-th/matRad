@@ -51,10 +51,12 @@ for i = 1:numOfContPoints
 end
 % adjustment if x-direction of the cube was mirrored
 if dirVect(1) == -1;
+    voxContPoints(:,1) = -1 * voxContPoints(:,1);
     voxContPoints(:,1) = cubeDimensions(1) - voxContPoints(:,1) + 1;
 end
 % adjustment if y-direction of the cube was mirrored
 if dirVect(2) == -1;
+    voxContPoints(:,2) = -1 * voxContPoints(:,2);
     voxContPoints(:,2) = cubeDimensions(2) - voxContPoints(:,2) + 1;
 end
 
